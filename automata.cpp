@@ -4,8 +4,8 @@
 
 using namespace std;
 
-#define M 4;
-#define N 2;
+#define M 4
+#define N 2
 
 int main(){
 	int fs;
@@ -16,7 +16,7 @@ int main(){
 	ifstream in("input.txt");
 	
 	in>>initial;
-	cout<<initial;
+	// cout<<initial;
 
 	i=0;
 	while(1){
@@ -43,7 +43,7 @@ int main(){
 		stin = inval[i] - 97;
 		state = regex[state][stin];
 		if (state==-1){
-			cout<<"Invalid code input. Breaking Code.";
+			cout<<"Invalid code input. Breaking Code.\n";
 			return 0;
 		}
 	}
