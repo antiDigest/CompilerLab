@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <string>
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -10,21 +12,20 @@ using namespace std;
 #define N 2
 
 int main(){
-	int fs;
+	int fs, kali;
 	int regex[10][10][10];
-	int i,j, initial, final[10], k,m, flag=0, state, stin;
+	int i,j, initial, final[10], k,m, flag=0, state, stin,l;
 	char inval[10];
-	char val[100];
+	char val[100], temp;
 
 	ifstream in("innfa.txt");
 
 	in>>initial;
-	// cout<<initial;
 
     for (i=0;i<10;i++)
         for (j=0;j<10;j++)
             for (k=0;k<10;k++)
-                regex[i][j][k]='\0';
+                regex[i][j][k]=-1;
 
 	i=0;
 	while(1){
@@ -41,24 +42,28 @@ int main(){
 	for (i=0;i<M;i++)
 		for (j=0;j<N;j++){
             in>>val;
-            cout<<val;
-            if(val==","){
-                k++;
-            }
-            regex[i][j][k] = atoi(val);
-		}
+            k=0;
+            l=0;
+            std::string input = val;
+            std::istringstream ss(input);
+            std::string token;
 
-/*
+            while(std::getline(ss, token, ',')) {
+                regex[i][j][k] = stoi(token);
+                std::cout << token << '\n';
+            }
+        }
+
     for (i=0;i<M;i++){
         for (j=0;j<N;j++){
-            for (k=0;regex[i][j][k]!='\0';k++)
+            for (k=0;regex[i][j][k]!=-1;k++)
                 cout<<regex[i][j][k]<<",";
             cout<<" ";
         }
         cout<<endl;
-    }*/
+    }
 
-	cout<<"Input String : \n";
+	/*cout<<"Input String : ";
 	cin>>inval;
 
 	k = strlen(inval);
@@ -85,5 +90,5 @@ int main(){
 	}
 	else{
 		printf("This is no match !\n");
-	}
+	}*/
 }
