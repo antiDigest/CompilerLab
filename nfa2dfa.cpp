@@ -16,7 +16,8 @@ int main(){
 	int regex[10][10][10];
 	int i,j, initial, final[10], k,m, flag=0, state, stin,l;
 	char inval[10];
-	char val[100], temp;
+	char val[100];
+	const char *temp;
 
 	ifstream in("innfa.txt");
 
@@ -25,7 +26,7 @@ int main(){
     for (i=0;i<10;i++)
         for (j=0;j<10;j++)
             for (k=0;k<10;k++)
-                regex[i][j][k]=-1;
+                regex[i][j][k]=-2;
 
 	i=0;
 	while(1){
@@ -49,46 +50,19 @@ int main(){
             std::string token;
 
             while(std::getline(ss, token, ',')) {
-                regex[i][j][k] = stoi(token);
-                std::cout << token << '\n';
+                temp = token.c_str();
+                regex[i][j][k] = atoi(temp);
+                //std::cout << token << '\n';
+                k++;
             }
         }
 
     for (i=0;i<M;i++){
         for (j=0;j<N;j++){
-            for (k=0;regex[i][j][k]!=-1;k++)
+            for (k=0;regex[i][j][k]!=-2;k++)
                 cout<<regex[i][j][k]<<",";
             cout<<" ";
         }
         cout<<endl;
     }
-
-	/*cout<<"Input String : ";
-	cin>>inval;
-
-	k = strlen(inval);
-	state = 0;
-	for(i=0;inval[i]!='\0';i++){
-		stin = inval[i] - 97;
-		state = regex[state][stin][0];
-		if (state==-1){
-			cout<<"Invalid input. Breaking Code.\n";
-			return 0;
-		}
-	}
-
-	for(i=0;i<m;i++){
-		if(state == final[i]){
-			flag=1;
-			break;
-		}
-	}
-
-	if (flag==1)
-	{
-		printf("This is a match !\n");
-	}
-	else{
-		printf("This is no match !\n");
-	}*/
 }
