@@ -14,7 +14,7 @@ int main(){
 	int regex[10][10][10];
 	int i,j, initial, final[10], k,m, flag=0, state, stin;
 	char inval[10];
-	char val[10];
+	char val[100];
 
 	ifstream in("innfa.txt");
 
@@ -41,22 +41,22 @@ int main(){
 	for (i=0;i<M;i++)
 		for (j=0;j<N;j++){
             in>>val;
-
+            cout<<val;
             if(val==","){
                 k++;
             }
             regex[i][j][k] = atoi(val);
 		}
 
-
+/*
     for (i=0;i<M;i++){
         for (j=0;j<N;j++){
             for (k=0;regex[i][j][k]!='\0';k++)
-                cout<<regex[i][j][k];
+                cout<<regex[i][j][k]<<",";
             cout<<" ";
         }
         cout<<endl;
-    }
+    }*/
 
 	cout<<"Input String : \n";
 	cin>>inval;
