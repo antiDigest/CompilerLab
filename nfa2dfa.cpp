@@ -8,12 +8,19 @@
 
 using namespace std;
 
-#define M 4
 #define N 2
+int M = 4;
+
+int** intersection(int regex[10][10][10], int m, int n, int val[10]){
+    int i, j,k,l;
+    for (i=0;val[i]!=-2;i++){
+        cout<<val[i];
+    }
+}
 
 int main(){
 	int fs, kali;
-	int regex[10][10][10];
+	int regex[10][10][10], newreg[10][10], v[10];
 	int i,j, initial, final[10], k,m, flag=0, state, stin,l;
 	char inval[10];
 	char val[100];
@@ -38,6 +45,7 @@ int main(){
 		i++;
 	}
 
+
 	m=i;
     k=0;
 	for (i=0;i<M;i++)
@@ -57,10 +65,25 @@ int main(){
             }
         }
 
+
     for (i=0;i<M;i++){
         for (j=0;j<N;j++){
-            for (k=0;regex[i][j][k]!=-2;k++)
-                cout<<regex[i][j][k]<<",";
+            for (k=0;regex[i][j][k]!=-2;k++){
+                if (k>0){
+                    cout<<k;
+                    M = M+1;
+                    l=0;
+                    while(regex[i][j][l]!=-2){
+                        v[l] = regex[i][j][l];
+                        l++;
+                    }
+                    regex[i][j][0] = M;
+                    intersection(regex, i, j, v);
+                }
+                else{
+                    newreg[i][j] = regex[i][j][k];
+                }
+            }
             cout<<" ";
         }
         cout<<endl;
