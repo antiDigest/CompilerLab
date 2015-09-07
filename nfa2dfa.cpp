@@ -5,17 +5,27 @@
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
+#include <algorithm>
+#include <set>
 
 using namespace std;
 
-#define N 2
-int M = 4;
+set<int> intersect;
+
+#define ALPHA 2
+int STATE = 4;
 
 int** intersection(int regex[10][10][10], int m, int n, int val[10]){
     int i, j,k,l;
-    for (i=0;val[i]!=-2;i++){
-        cout<<val[i];
+    set<int> s[10];
+    for (i=0;val[i]!='\0';i++){
+        for(j=0;j<ALPHA;j++){
+            for(k=0;regex[val[i]][j][k]!=-2;k++)
+                s[val[i]].insert(regex[val[i]][j][k])
+        }
     }
+    set_intersection(s1.begin(),s1.end(),s2.begin(),s2.end(),
+                  std::inserter(intersect,intersect.begin()));
 }
 
 int main(){
@@ -48,8 +58,8 @@ int main(){
 
 	m=i;
     k=0;
-	for (i=0;i<M;i++)
-		for (j=0;j<N;j++){
+	for (i=0;i<STATE;i++)
+		for (j=0;j<ALPHA;j++){
             in>>val;
             k=0;
             l=0;
@@ -66,18 +76,18 @@ int main(){
         }
 
 
-    for (i=0;i<M;i++){
-        for (j=0;j<N;j++){
+    for (i=0;i<STATE;i++){
+        for (j=0;j<ALPHA;j++){
             for (k=0;regex[i][j][k]!=-2;k++){
                 if (k>0){
-                    cout<<k;
-                    M = M+1;
+                    //cout<<k;
+                    STATE = STATE+1;
                     l=0;
                     while(regex[i][j][l]!=-2){
                         v[l] = regex[i][j][l];
                         l++;
                     }
-                    regex[i][j][0] = M;
+                    regex[i][j][0] = STATE;
                     intersection(regex, i, j, v);
                 }
                 else{
