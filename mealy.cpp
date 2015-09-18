@@ -33,7 +33,7 @@ int main(){
 	for (i=0;i<M;i++)
 		for (j=0;j<N;j++){
 			in>>regex[i][j];
-			in>>outval[10][10];
+			in>>outval[i][j];
 		}
 
 	cout<<"Input String : \n";
@@ -68,6 +68,7 @@ int main(){
 		{
 			cout<<output[i];
 		}
+		cout<<endl;
 	}
 	else{
 		printf("This is no match !\n");

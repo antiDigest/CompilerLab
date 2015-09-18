@@ -31,10 +31,9 @@ int main(){
 	m=i;
 
 	for (i=0;i<M;i++){
-		in>>outval[10][10];
+		in>>outval[i];
 		for (j=0;j<N;j++){
 			in>>regex[i][j];
-			
 		}
 	}
 
@@ -65,11 +64,12 @@ int main(){
 
 	if (flag==1)
 	{
-		cout<<"\nOutput : ";
+		cout<<"Output : ";
 		for (int i = 0; i < k; i++)
 		{
 			cout<<output[i];
 		}
+		cout<<endl;
 	}
 	else{
 		printf("This is no match !\n");
