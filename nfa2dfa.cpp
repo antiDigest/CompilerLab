@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -15,10 +16,69 @@ using namespace std;
 
 #define INPUT_FILE ("innfa.txt")
 
-int automata[STATE][ALPHA][STATE];
+int nfa[STATE][ALPHA][STATE];
+int dfa[20][20];
 int initial;
 int final[STATE];
-int state;
+int state, NEWSTATE=STATE;
+
+int *OR(int *a, int *b){
+	int *c;
+	for(int i=0;i<STATE;i++){
+		if(a[i]==b[i] || a[i]>b[i])
+			c[i]=a[i];
+		else
+			c[i]=b[i];
+	}
+	return c;
+}
+
+int value(int *a){
+	int opval=0;	//Output value for the binary array !
+	for (int i = 0; i < STATE; i++){
+		if(a[i]!=EMPTY)
+			opval += a[i]*pow(2,i);
+	}
+	return opval;
+}
+
+int convert_back(int a){
+	int b[STATE];
+	for(int i=0;i<STATE;i++)
+		b[i]=EMPTY;
+	int i=0;
+	while(a>=1){
+		if(a%2==1){
+			cout<<i<<",";
+		}
+		a = a/2;
+		i++;
+	}
+}
+
+int convert(int a){
+	int b[STATE];
+	for(int i=0;i<STATE;i++)
+		b[i]=EMPTY;
+	b[a] = 1;
+	return value(b);
+}
+
+int check_new(int i, int j){
+	int k;
+	for(k=0;k<STATE;k++){
+		if(dfa[i][j]==k){
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int add_state(int i){
+	for(int j=0;j<ALPHA;j++){
+		dfa[NEWSTATE][j] = ;
+	}
+}
 
 int main(){
 	int i,j,k;
@@ -32,7 +92,11 @@ int main(){
 	for(i=0;i<STATE;i++)
 		for(j=0;j<ALPHA;j++)
 			for(k=0;k<STATE;k++)
-				automata[i][j][k] = EMPTY;
+				nfa[i][j][k] = EMPTY;
+
+	for(i=0;i<20;i++)
+		for(j=0;j<20;j++)
+			dfa[i][j] = EMPTY;
 
 	string line;
 
@@ -60,29 +124,28 @@ int main(){
 			istringstream cell_stream(cell);
 			string val;
 
-			k=0;
 			while(getline(cell_stream,val,',')){
-				automata[i][j][k] = atoi(val.c_str());
-				k++;
+				nfa[i][j][atoi(val.c_str())] = 1;
 			}
 			j++;
 		}
 		i++;
 	}
 
-	cout<<"Automata : \n\n";
-	cout<<"\ta\tb\n";
 	for(i=0;i<STATE;i++){
-		cout<<"q"<<i<<"\t";
 		for(j=0;j<ALPHA;j++){
-			for(k=0;k<STATE && automata[i][j][k]!=EMPTY;k++)
-				cout<<automata[i][j][k]<<",";
-			cout<<"\t";
+			dfa[i][j] = value(nfa[i][j]);
 		}
-		cout<<endl;
 	}
-	cout<<"\n\n";
 
-	
-
+	for(i=0;i<NEWSTATE;i++){
+		for(j=0;j<ALPHA;j++){
+			if(check_new(i,j)){
+				NEWSTATE++;
+				add_state(i);
+			}
+			else
+				dfa[i][j] = nfa[i][j][0];
+		}
+	}
 }
