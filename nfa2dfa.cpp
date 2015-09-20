@@ -74,20 +74,19 @@ int check_new(int i, int j){
 	return 1;
 }
 
-int add_state(int i){
-	for(int j=0;j<ALPHA;j++){
-		dfa[NEWSTATE][j] = ;
-	}
-}
-
 int main(){
 	int i,j,k;
 	const char *inval;
+	int *prev;
 	int flag=0;
+
+	prev = (int*)malloc(sizeof(int)*20);
+
 	ifstream in(INPUT_FILE);
 
-	for(i=0;i<STATE;i++)
+	for(i=0;i<STATE;i++){
 		final[i]=EMPTY;
+	}
 
 	for(i=0;i<STATE;i++)
 		for(j=0;j<ALPHA;j++)
@@ -142,10 +141,20 @@ int main(){
 		for(j=0;j<ALPHA;j++){
 			if(check_new(i,j)){
 				NEWSTATE++;
-				add_state(i);
+				prev = '\0';
+				for(k=0;k<STATE;k++){
+					prev = OR(prev, nfa[k][j]);
+				}
+				dfa[NEWSTATE][j] = value(prev);
 			}
 			else
 				dfa[i][j] = nfa[i][j][0];
 		}
+	}
+
+	for(i=0;i<NEWSTATE;i++){
+		for(j=0;j<ALPHA;j++)
+			cout<<dfa[i][j]<<" ";
+		cout<<endl;
 	}
 }
