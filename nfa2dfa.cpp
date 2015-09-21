@@ -22,19 +22,23 @@ int initial;
 int final[STATE];
 int state, NEWSTATE=STATE;
 
-int *OR(int *a, int *b){
+int *OR(vector<int> a, vector<int> b){
+	std::vector<int>::iterator ita;
+	std::vector<int>::iterator itb;
 	int *c;
+	ita = a.begin();
+	itb = b.begin();
 	for(int i=0;i<STATE;i++){
-		if(a[i]==b[i] || a[i]>b[i])
-			c[i]=a[i];
+		if(ita==itb || ita>itb)
+			c[i]=ita;
 		else
-			c[i]=b[i];
+			c[i]=itb;
 	}
 	return c;
 }
 
 int value(int *a){
-	int opval=0;	//Output value for the binary array !
+	int opval=0;
 	for (int i = 0; i < STATE; i++){
 		if(a[i]!=EMPTY)
 			opval += a[i]*pow(2,i);
@@ -152,9 +156,11 @@ int main(){
 		}
 	}
 
+	cout<<"\ta\tb\n";
 	for(i=0;i<NEWSTATE;i++){
+		cout<<i<<"\t";
 		for(j=0;j<ALPHA;j++)
-			cout<<dfa[i][j]<<" ";
+			cout<<dfa[i][j]<<"\t";
 		cout<<endl;
 	}
 }
