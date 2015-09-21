@@ -132,6 +132,19 @@ int main(){
 		i++;
 	}
 
+	cout<<"\nIndefinite Automata :\n\ta\tb\n";
+	for(i=0;i<STATE;i++){
+		cout<<i;
+		for(j=0;j<ALPHA;j++){
+			cout<<"\t";
+			for(k=0;k<STATE;k++)
+				if(nfa[i][j][k]==1){
+					cout<<k<<",";
+				}
+		}
+		cout<<endl;
+	}
+
 	for(i=0;i<STATE;i++){
 		for(j=0;j<ALPHA;j++){
 			dfa[i][j] = value(nfa[i][j]);
