@@ -20,19 +20,16 @@ int nfa[STATE][ALPHA][STATE];
 int dfa[20][20];
 int initial;
 int final[STATE];
-int state, NEWSTATE=STATE;
+int state, NEWSTATE = STATE;
 
-int *OR(vector<int> a, vector<int> b){
-	std::vector<int>::iterator ita;
-	std::vector<int>::iterator itb;
+int *OR(int *a, int *b){
 	int *c;
-	ita = a.begin();
-	itb = b.begin();
-	for(int i=0;i<STATE;i++){
-		if(ita==itb || ita>itb)
-			c[i]=ita;
-		else
-			c[i]=itb;
+	c = (int*)malloc(sizeof(int)*STATE);
+	for (int i = 0; i < STATE; i++){
+		c[i] = EMPTY;
+	}
+	for(int i=0;i<NEWSTATE;i++){
+		c[i] = a[i] | b[i] ;
 	}
 	return c;
 }
